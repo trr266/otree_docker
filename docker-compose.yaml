@@ -1,0 +1,56 @@
+version: "2"
+
+# You might want to edit the folder name for the oTree 
+# installation that you want to include into the container.
+# Also, you can change the port that oTree is listening
+# to on the host.
+# See the file 'config.env' for other configuration options. 
+
+services:
+  otree:
+    build: 
+      context: .
+      args: 
+        OTREE_APP_FOLDER: app
+    env_file:
+      - config.env
+      - secrets.env
+    ports:
+      - 9090:80
+    volumes:
+      - "otree-resetdb:/opt/init"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+    networks:
+      - db-net
+
+
+  database:
+    image: postgres:9.5
+    env_file:
+      - config.env 
+      - secrets.env
+    environment:
+      PG_DATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - "database:/var/lib/postgresql/data"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+    tmpfs:
+      - "/tmp"
+      - "/run"
+    networks:
+      db-net:
+  
+volumes:
+  database:
+  otree-resetdb:
+
+networks:
+  db-net:

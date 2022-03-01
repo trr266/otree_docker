@@ -1,0 +1,8 @@
+.*.swp
+.DS_Store
+*~
+app/*
+*exp*
+github_api.token
+secrets.env
+app
