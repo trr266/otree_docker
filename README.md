@@ -154,7 +154,14 @@ All additional python module should be add to requirements.txt in your
 otree project.
 
 
-### Configuration 
+### nginx configuration
+
+If you are interested in hosting your oTree instances to the outside world
+using standard ports, you can take a look at the config file `otree_nginx_site.conf`.
+Use at your own risk ;-)
+
+
+### Configuration variables
 
 ### `config.env` file options
 
